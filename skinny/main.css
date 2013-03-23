@@ -51,7 +51,7 @@ table {
 
 body {
 	font-size: 0.875em; /* 16px·0.875=14px */
-	color: #333;
+	color: #000;
 	margin: 0;
 	padding: 0;
 	width: 100%;
@@ -82,7 +82,7 @@ div#globalWrapper {
 div#column-content {
     padding: 1.4em;
 	background-color: rgba(255, 255, 255, 0.8);
-	color: #333;
+	color: #000;
 	z-index: 10;
 	position: relative;
 	-moz-border-radius: 5px;
@@ -91,7 +91,7 @@ div#column-content {
 	}
 	
 a {
-	color: #393;
+    	color: #61AE24;
 	}
 	
 a:hover {
@@ -99,24 +99,24 @@ a:hover {
     }
 	
 a.new {
-    color: #933 !important;
+    color: #D70060 !important;
     }
 
 a.external {
-    color: #339;
-    background: url('images/simple_external.png') right center no-repeat;
-    padding: 0 8px 0 0;
+    color: #00A1CB;
+    /* background: url('images/simple_external.png') right center no-repeat;
+    padding: 0 8px 0 0; */
     }
     
 a.extiw,
 a.bibly_reference {
-    color: #339;
+    color: #00A1CB;
     }
     
 .plainlinks a {
     background:transparent none repeat scroll 0 0 !important;
     padding:0 !important;
-    color: #393 !important;
+    color: #61AE24 !important;
     }
     
 a.feedlink {
@@ -182,12 +182,12 @@ span.editsection {
     }
     
 span.editsection a {
-    color: #999;
+    color: #ccc;
     }
     
 span.editsection a:hover {
     text-decoration: none;
-    color: #393;
+    color: #61AE24;
     }
 
 p {
@@ -257,17 +257,17 @@ div#jump-to-nav {
 div#p-logo,
 div#p-personal,
 div#footer {
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.45);
-    color: #333;
+    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
+    color: #000;
     }
 
 div#p-logo a {
-    color: #060;
+    color: #000;
     }
 
 div#p-personal a,
 div#footer a {
-    color: #333;
+    color: #000;
     }
 
 div#p-logo {
@@ -294,7 +294,7 @@ div#p-logo a:before {
     text-decoration: none;
     text-indent: 0;
     padding-right: 0.25em;
-    color: #666;
+    color: #616161;
     }
 
 	
@@ -342,15 +342,17 @@ div#p-cactions li a {
 	z-index: inherit;
 	text-transform: lowercase;
 	text-decoration: none;
-    color: #393;
-    background: rgba(255, 255, 255, 0.45);
+    color: #61AE24;
+    background: rgba(255, 255, 255, 0.6);
 	display: inline-block;
     vertical-align: top;
+    box-shadow: 0 6px 9px -9px #999 inset;
 	}
 	
 div#p-cactions li.selected a, div#p-cactions li a:hover {
 	background: rgba(255, 255, 255, 0.8);
     padding: 0.5em 0.5em 0.4em;
+    box-shadow: none;
 	}
 	
 div#p-cactions li.selected a {
@@ -358,7 +360,7 @@ div#p-cactions li.selected a {
     }
 
 div#p-cactions li.new a {
-    color: #933;
+    color: #D70060;
     }
 
 div#p-cactions ul li#ca-talk {
@@ -443,12 +445,12 @@ div#p-personal ul li#pt-login a:before {
     text-indent: 0;
     padding-right: 0.25em;
     vertical-align: 10%;
-    color: #666;
+    color: #616161;
     }
 
 div#p-personal ul li#pt-logout {
 	font-size: 0.857em; /* 14px·0.857=12px */
-	color: #999;
+	color: #666;
 	}
 
 
@@ -493,7 +495,7 @@ div#catlinks {
 	}
 	
 div#contentSub {
-	color: #999;
+	color: #666;
 	font-size: 0.857em; /* 14px·0.857=12px */
 	margin: 0 0 1.167em 1em; /* 12px·1.167=14px */
 	}
@@ -549,7 +551,7 @@ div#p-search,
 div#p-tb {
     width: 7.928em;
     padding: 1.4em;
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.6);
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -580,7 +582,7 @@ div#p-tb ul li {
     }
 
 div#p-tb a {
-    color: #208020;
+    color: #61AE24;
     }
     
 div#p-tb a#feed-rss {
@@ -883,11 +885,11 @@ hr.references {
 	margin-top: 2em;
 	margin-left: 0;
 	border-top-style: solid;
-	color: #777;
+	color: #444;
 	}
 
 ol.references {
-	color: #777;
+	color: #444;
 	font-size: 0.857em; /* 14px·0.857=12px */
 	}
 	
@@ -935,7 +937,7 @@ table.mw-allpages-table-chunk td div.allpagesredirect:after {
     content: " (redirect)";
     font-size: 0.857em; /* 14px·0.857=12px */
     font-style: italic;
-    color: #999;
+    color: #666;
     }
 	
 ul.special li {
