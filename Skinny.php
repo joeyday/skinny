@@ -87,7 +87,11 @@ class SkinnyTemplate extends QuickTemplate {
 		    <meta name="viewport" content="width=device-width" />
 		<?php endif; ?>
 		<?php $this->html('headlinks') ?>
-		<title><?php $this->text('pagetitle') ?></title>
+        <?php if($this->data['title'] == "Project:Home") { ?>
+        <title><?php echo $this->text('sitename'); ?></title>
+        <?php } else { ?> 
+        <title><?php echo $this->text('pagetitle') ?></title>
+        <?php } ?>
 		<?php $this->html('csslinks') ?>
 
 		<!--[if lt IE 7]><script type="<?php $this->text('jsmimetype') ?>" src="<?php $this->text('stylepath') ?>/common/IEFixes.js?<?php echo $GLOBALS['wgStyleVersion'] ?>"></script>

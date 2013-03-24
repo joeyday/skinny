@@ -549,9 +549,11 @@ div#siteNotice p {
 	margin: 0;
 	}
 	
+div#p-navigation,
 div#p-search,
 div#p-tb {
     width: 7.928em;
+    margin: 0 0 1em 0;
     padding: 1.4em;
     background: rgba(255, 255, 255, 0.6);
     -moz-border-radius: 5px;
@@ -560,6 +562,7 @@ div#p-tb {
     text-align: center;
     }
 
+div#p-navigation h5,
 div#p-tb h5,
 div#p-search h5 {
     font-size: 0.857em; /* 14px¬0.857=12px */
@@ -567,32 +570,37 @@ div#p-search h5 {
     clear: none;
     }
 
-div#p-tb {
-    margin: 0 0 1em 0;
-    float: left;
-    clear: both;
-    }
-
+div#p-navigation ul,
 div#p-tb ul {
     margin: 0;
     }
 
+div#p-navigation ul li,
 div#p-tb ul li {
     font-size: 0.857em; /* 14px¬0.857=12px */
     margin: 0;
     list-style-type: none;
     }
 
+div#p-navigation a,
 div#p-tb a {
     color: #61AE24;
     }
+
+div#p-navigation {
+    display: none;
+    }
     
+div#p-tb {
+    float: left;
+    clear: both;
+    }
+
 div#p-tb a#feed-rss {
     margin-right: 0.5em;
     }
 
 div#p-search {
-    margin: 0 0 1.4em 0;
     float: right;
     }
 
@@ -1100,11 +1108,7 @@ table.wikitable tr:nth-child(odd) td {
     div#column-one {
         width: 22.857em;
         }
-        
-    div#footer {
-        width: 26.671em;
-        }
-        
+
     div#siderail {
         position: absolute;
         top: 5em;
@@ -1112,11 +1116,17 @@ table.wikitable tr:nth-child(odd) td {
         width: 10.728em;
         }
     
-    div#p-tb {
-        float: none;
+    div#p-navigation {
+        display: block;
         }
         
+    div#p-tb,
     div#p-search {
         float: none;
         }
+
+    div#footer {
+        width: 26.671em;
+        }
+        
 }
