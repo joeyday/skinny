@@ -95,6 +95,8 @@ class SkinnyTemplate extends QuickTemplate {
 
 		<?php print Skin::makeGlobalVariablesScript( $this->data ); ?>
 
+		<script type="text/javascript" src="//use.typekit.net/exn2xvh.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 		<script type="<?php $this->text('jsmimetype') ?>" src="<?php $this->text('stylepath' ) ?>/common/wikibits.js?<?php echo $GLOBALS['wgStyleVersion'] ?>"><!-- wikibits js --></script>
 		<!-- Head Scripts -->
 <?php $this->html('headscripts') ?>
@@ -164,75 +166,77 @@ class SkinnyTemplate extends QuickTemplate {
 	</div>
 		</div>
 		<div id="column-one">
-	<div id="p-cactions" class="portlet">
-		<h5><?php $this->msg('views') ?></h5>
-		<div class="pBody">
-			<ul>
-	<?php		foreach($this->data['content_actions'] as $key => $tab) {
-					if ($key != "watch" && $key != "unwatch" && $key != "protect" && $key != "unprotect" && $key != "delete") {
-						echo '
-						<li id="' . Sanitizer::escapeId( "ca-$key" ) . '"';
-						if( $tab['class'] ) {
-							echo ' class="'.htmlspecialchars($tab['class']).'"';
-						}
-						echo'><a href="'.htmlspecialchars($tab['href']).'"';
-						# We don't want to give the watch tab an accesskey if the
-						# page is being edited, because that conflicts with the
-						# accesskey on the watch checkbox.  We also don't want to
-						# give the edit tab an accesskey, because that's fairly su-
-						# perfluous and conflicts with an accesskey (Ctrl-E) often
-						# used for editing in Safari.
-						if( in_array( $action, array( 'edit', 'submit' ) )
-						&& in_array( $key, array( 'edit', 'watch', 'unwatch' ))) {
-							echo $skin->tooltip( "ca-$key" );
-						} else {
-							echo $skin->tooltipAndAccesskey( "ca-$key" );
-						}
-						echo '>'.htmlspecialchars($tab['text']).'</a></li>';
-					}
-				} ?>
-			</ul>
-		</div>
-	</div>
-	<div class="portlet" id="p-personal">
-		<h5><?php $this->msg('personaltools') ?></h5>
-		<div class="pBody">
-			<ul>
-<?php 			foreach($this->data['personal_urls'] as $key => $item) {
-					if ($key != "mytalk" && $key != "preferences"  && $key != "watchlist" && $key != "mycontris" && $key != "anonuserpage" && $key != "anontalk" && $key != "logout") { ?>
-						<li id="<?php echo Sanitizer::escapeId( "pt-$key" ) ?>"<?php
-							if ($item['active']) { ?> class="active"<?php } ?>><a href="<?php
-						echo htmlspecialchars($item['href']) ?>"<?php echo $skin->tooltipAndAccesskey('pt-'.$key) ?><?php
-						if(!empty($item['class'])) { ?> class="<?php
-						echo htmlspecialchars($item['class']) ?>"<?php } ?>><?php
-						echo htmlspecialchars($item['text']) ?></a></li>
-<?php				}
-				} ?>
-			</ul>
-		</div>
-	</div>
-	<div class="portlet" id="p-logo">
-		<a href="<?php echo htmlspecialchars($this->data['nav_urls']['mainpage']['href'])?>" <?php
-			echo $skin->tooltipAndAccesskey('p-logo') ?>><?php echo $this->text('sitename') ?></a>
-	</div>
-	<script type="<?php $this->text('jsmimetype') ?>"> if (window.isMSIE55) fixalpha(); </script>
-<?php
-		$sidebar = $this->data['sidebar'];
-		if ( !isset( $sidebar['SEARCH'] ) ) $sidebar['SEARCH'] = true;
-		if ( !isset( $sidebar['TOOLBOX'] ) ) $sidebar['TOOLBOX'] = true;
-		if ( !isset( $sidebar['LANGUAGES'] ) ) $sidebar['LANGUAGES'] = true;
-		foreach ($sidebar as $boxName => $cont) {
-			if ( $boxName == 'SEARCH' ) {
-				$this->searchBox();
-			} elseif ( $boxName == 'TOOLBOX' ) {
-				$this->toolbox();
-			} elseif ( $boxName == 'LANGUAGES' ) {
-				$this->languageBox();
-			} else {
-				$this->customBox( $boxName, $cont );
-			}
-		}
-?>
+        	<div id="p-cactions" class="portlet">
+        		<h5><?php $this->msg('views') ?></h5>
+        		<div class="pBody">
+        			<ul>
+        	<?php		foreach($this->data['content_actions'] as $key => $tab) {
+        					if ($key != "watch" && $key != "unwatch" && $key != "protect" && $key != "unprotect" && $key != "delete") {
+        						echo '
+        						<li id="' . Sanitizer::escapeId( "ca-$key" ) . '"';
+        						if( $tab['class'] ) {
+        							echo ' class="'.htmlspecialchars($tab['class']).'"';
+        						}
+        						echo'><a href="'.htmlspecialchars($tab['href']).'"';
+        						# We don't want to give the watch tab an accesskey if the
+        						# page is being edited, because that conflicts with the
+        						# accesskey on the watch checkbox.  We also don't want to
+        						# give the edit tab an accesskey, because that's fairly su-
+        						# perfluous and conflicts with an accesskey (Ctrl-E) often
+        						# used for editing in Safari.
+        						if( in_array( $action, array( 'edit', 'submit' ) )
+        						&& in_array( $key, array( 'edit', 'watch', 'unwatch' ))) {
+        							echo $skin->tooltip( "ca-$key" );
+        						} else {
+        							echo $skin->tooltipAndAccesskey( "ca-$key" );
+        						}
+        						echo '>'.htmlspecialchars($tab['text']).'</a></li>';
+        					}
+        				} ?>
+        			</ul>
+        		</div>
+        	</div>
+        	<div class="portlet" id="p-personal">
+        		<h5><?php $this->msg('personaltools') ?></h5>
+        		<div class="pBody">
+        			<ul>
+        <?php 			foreach($this->data['personal_urls'] as $key => $item) {
+        					if ($key != "mytalk" && $key != "preferences"  && $key != "watchlist" && $key != "mycontris" && $key != "anonuserpage" && $key != "anontalk" && $key != "logout") { ?>
+        						<li id="<?php echo Sanitizer::escapeId( "pt-$key" ) ?>"<?php
+        							if ($item['active']) { ?> class="active"<?php } ?>><a href="<?php
+        						echo htmlspecialchars($item['href']) ?>"<?php echo $skin->tooltipAndAccesskey('pt-'.$key) ?><?php
+        						if(!empty($item['class'])) { ?> class="<?php
+        						echo htmlspecialchars($item['class']) ?>"<?php } ?>><?php
+        						echo htmlspecialchars($item['text']) ?></a></li>
+        <?php				}
+        				} ?>
+        			</ul>
+        		</div>
+        	</div>
+        	<div class="portlet" id="p-logo">
+        		<a href="<?php echo htmlspecialchars($this->data['nav_urls']['mainpage']['href'])?>" <?php
+        			echo $skin->tooltipAndAccesskey('p-logo') ?>><?php echo $this->text('sitename') ?></a>
+        	</div>
+        	<script type="<?php $this->text('jsmimetype') ?>"> if (window.isMSIE55) fixalpha(); </script>
+        	<div id="siderail">
+        <?php
+        		$sidebar = $this->data['sidebar'];
+        		if ( !isset( $sidebar['SEARCH'] ) ) $sidebar['SEARCH'] = true;
+        		if ( !isset( $sidebar['TOOLBOX'] ) ) $sidebar['TOOLBOX'] = true;
+        		if ( !isset( $sidebar['LANGUAGES'] ) ) $sidebar['LANGUAGES'] = true;
+        		foreach ($sidebar as $boxName => $cont) {
+        			if ( $boxName == 'SEARCH' ) {
+        				$this->searchBox();
+        			} elseif ( $boxName == 'TOOLBOX' ) {
+        				$this->toolbox();
+        			} elseif ( $boxName == 'LANGUAGES' ) {
+        				$this->languageBox();
+        			} else {
+        				$this->customBox( $boxName, $cont );
+        			}
+        		}
+        ?>
+        	</div>
 		</div><!-- end of the left (by default at least) column -->
 			<div class="visualClear"></div>
 			<div id="footer">

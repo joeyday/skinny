@@ -56,6 +56,7 @@ body {
 	padding: 0;
 	width: 100%;
 	height: 100%;
+	background: #aaa;
 	}
 
 div#fixed-background-hack {
@@ -65,23 +66,24 @@ div#fixed-background-hack {
     padding: 0;
     width: 100%;
     height: 100%;
-	background: url('images/background.png') no-repeat center center #ccc;
+	background: #aaa url('images/background.png') no-repeat center center;
 	background-size: cover;
     }
 	
 div#globalWrapper {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: "futura-pt", Helvetica, Arial, sans-serif;
     width: 22.857em; /* 14px·22.857=320px */
     padding: 2.75em 0;
     margin: 0 auto;
 	background: transparent;
 	font-size: 100%;
 	line-height: 1.4em;
+	position: relative;
     }
     
 div#column-content {
     padding: 1.4em;
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 0.85);
 	color: #000;
 	z-index: 10;
 	position: relative;
@@ -350,7 +352,7 @@ div#p-cactions li a {
 	}
 	
 div#p-cactions li.selected a, div#p-cactions li a:hover {
-	background: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.85);
     padding: 0.5em 0.5em 0.4em;
     box-shadow: none;
 	}
@@ -538,7 +540,7 @@ div.boilerplate.error {
 div#siteNotice {
     border-top: 1px dashed #ccc;
     border-bottom: 1px dashed #ccc;
-    background: #f7f7f7 url('images/fugue-icons/light-bulb.png') 0.6em center no-repeat;
+    background: #fff url('images/fugue-icons/light-bulb.png') 0.6em center no-repeat;
 	padding: 0.5em 0.75em 0.5em 2.5em;
 	margin: 0 0 1.4em;
 	}
@@ -666,7 +668,7 @@ blockquote {
     font-size:0.857em; /* 14px·0.857=12px */
     margin:1em 0.4em;
     padding-left:1em;
-    border-left: 1px solid #f96;
+    border-left: 1px solid #01A4A4;
     }
 
 #toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
@@ -1042,10 +1044,26 @@ ul.mw-search-results li div.mw-search-result-data {
     font-size: 0.857em; /* 14px · 0.857 = 12px */
     }
     
+.mw-search-result-data {
+    color: #616161;
+    }
+
+table.wikitable {
+    background-color: transparent;
+    border: 1px #616161 solid;
+    }
+
+table.wikitable tbody th {
+    background-color: #616161;
+    color: #fff;
+    font-weight: normal;
+    }
+    
 table.wikitable tbody th,
 table.wikitable tbody td {
     padding-left: 0.5em;
     padding-right: 0.5em;
+    border: 1px #616161 solid;
     }
     
 table.wikitable.nowrap tbody th,
@@ -1054,13 +1072,51 @@ table.wikitable.nowrap tbody td {
     }
     
 table.wikitable tr:nth-child(odd) td {
+    background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+table.wikitable tr:nth-child(odd) td {
     background-color: #fff;
     }
     
     
-/* when the users browser size is greater than 500px */
-@media screen and (min-width: 500px) {
+/* when the user's browser size is greater than 500px */
+@media screen and (min-width: 31.25em) {
     body {
-        font-size: 1em;
-    }
+        font-size: 1.125em;
+        }
+}
+
+/* when the user's browser size is greater than 700px */
+@media screen and (min-width: 43.75em) {
+    div#globalWrapper {
+        width: 34.985em;
+        }
+        
+    div#column-content {
+        width: 20.057em;
+        }
+        
+    div#column-one {
+        width: 22.857em;
+        }
+        
+    div#footer {
+        width: 26.671em;
+        }
+        
+    div#siderail {
+        position: absolute;
+        top: 5em;
+        right: 0;
+        width: 10.728em;
+        }
+    
+    div#p-tb {
+        float: none;
+        }
+        
+    div#p-search {
+        float: none;
+        }
 }
