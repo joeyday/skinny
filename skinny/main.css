@@ -121,10 +121,10 @@ a.bibly_reference {
     color: #61AE24 !important;
     }
     
-a.feedlink {
+/* a.feedlink {
 	background: url('images/fugue-icons/feed-small.png') -2px center no-repeat;
 	padding-left: 15px;
-	}
+	} */
 
 h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
@@ -490,9 +490,10 @@ div.floatright {
 	
 div#catlinks {
 	font-size: 0.857em; /* 14px·0.857=12px */
-    border: 1px solid #ccc;
-    background: #f7f7f7 url('images/fugue-icons/price-tag.png') 0.583em 0.583em no-repeat;
-	padding: 0.583em 0.875em 0.583em 2.475em; /
+	border: 1px solid #ccc;
+	/* background: #f7f7f7 url('images/fugue-icons/price-tag.png') 0.583em 0.583em no-repeat;
+	padding: 0.583em 0.875em 0.583em 2.475em; */
+	padding: 0.583em 0.875em;
 	margin: 1.167em 0 0;
 	}
 	
@@ -540,8 +541,9 @@ div.boilerplate.error {
 div#siteNotice {
     border-top: 1px dashed #ccc;
     border-bottom: 1px dashed #ccc;
-    background: #fff url('images/fugue-icons/light-bulb.png') 0.6em center no-repeat;
-	padding: 0.5em 0.75em 0.5em 2.5em;
+    /* background: #fff url('images/fugue-icons/light-bulb.png') 0.6em center no-repeat;
+	padding: 0.5em 0.75em 0.5em 2.5em; */
+	padding: 0.5em 0.75em;
 	margin: 0 0 1.4em;
 	}
 	
@@ -717,7 +719,7 @@ div#column-content {
     background-position: 20.314em 1.6em; /* 14px?1.143=16px 22.857-1.4-1.143=20.314 */
     }
 
-.ns-1 div#column-content,
+/* .ns-1 div#column-content,
 .ns-3 div#column-content,
 .ns-5 div#column-content,
 .ns-7 div#column-content,
@@ -745,8 +747,8 @@ div#column-content {
     }
 
 .page-Special_Contact div#column-content {
-    /* background-image: url('images/fugue-icons/postage-stamp.png'); */
-    }
+    background-image: url('images/fugue-icons/postage-stamp.png');
+    } */
 
 .page-Special_Contact table#mailheader tr {
     display: block;
@@ -1099,6 +1101,7 @@ table.wikitable tr:nth-child(odd) td {
 @media screen and (min-width: 43.75em) {
     div#globalWrapper {
         width: 34.985em;
+        padding: 1.75em 0 2.75em;
         }
         
     div#column-content {
@@ -1108,10 +1111,28 @@ table.wikitable tr:nth-child(odd) td {
     div#column-one {
         width: 22.857em;
         }
+        
+    div#p-personal {
+        right: 0.25em;
+        width: 10.728em;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        top: 2em;
+        }
 
+    div#p-logo {
+        right: 0.25em;
+        width: 10.728em;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        top: 3.5em;
+        }
+        
     div#siderail {
         position: absolute;
-        top: 5em;
+        top: 5.5em;
         right: 0;
         width: 10.728em;
         }
