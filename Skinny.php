@@ -31,7 +31,7 @@ class SkinSkinny extends SkinTemplate {
 
 		# Append to the default screen common & print styles...
 		$out->addStyle( 'skinny/main.css', 'screen' );
-		$out->addStyle( 'skinny/font-awesome.css', 'screen' );
+		$out->addStyle( 'skinny/font-awesome.min.css', 'screen' );
 		$out->addStyle( 'skinny/fontello/css/fontello.css', 'screen' );
 		
 		if( $wgHandheldStyle ) {
