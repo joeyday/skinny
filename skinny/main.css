@@ -192,6 +192,10 @@ span.editsection a:hover {
     color: #61AE24;
     }
 
+div.main-topic-link {
+    margin: -0.5em 0 1em 1.4em;
+    }
+
 p {
 	margin: 1em 0;
 	}
@@ -685,7 +689,7 @@ blockquote {
     }
 
 #toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
-    text-align:center;
+    text-align: center;
     }
 
 #toc, .toc {
@@ -693,6 +697,7 @@ blockquote {
     border: 1px solid #ccc;
     background: #f7f7f7;
     padding: 0.5em 0.75em;
+    margin: 0 auto;
     }
 
 #toc h2, .toc h2 {
@@ -1096,7 +1101,7 @@ table.wikitable tr:nth-child(odd) td {
 /* when the user's browser size is greater than 500px */
 @media screen and (min-width: 31.25em) {
     body {
-        font-size: 1.125em;
+        font-size: 1em;
         }
 }
 

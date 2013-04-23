@@ -80,7 +80,7 @@ class SkinnyTemplate extends QuickTemplate {
 		?>xmlns:<?php echo "{$tag}=\"{$ns}\" ";
 	} ?>xml:lang="<?php $this->text('lang') ?>" lang="<?php $this->text('lang') ?>" dir="<?php $this->text('dir') ?>">
 	<head>
-		<meta http-equiv="Content-Type" content="<?php $this->text('mimetype') ?>; charset=<?php $this->text('charset') ?>" />
+    	<meta http-equiv="Content-Type" content="<?php $this->text('mimetype') ?>; charset=<?php $this->text('charset') ?>" />
 		<?php if (strpos($_SERVER['HTTP_USER_AGENT'],"iPhone") > 0): ?>
 		    <meta name="viewport" content="width=320,maximum-scale=1.0" />
 		<?php else: ?>
@@ -133,7 +133,7 @@ class SkinnyTemplate extends QuickTemplate {
 			Hyphenator.config(hyphenatorSettings);
 			Hyphenator.run();
 		</script>
-		<script type="text/javascript">
+		<!-- <script type="text/javascript">
             // When ready...
             window.addEventListener("load",function() {
                 // Set a timeout...
@@ -142,7 +142,7 @@ class SkinnyTemplate extends QuickTemplate {
                     window.scrollTo(0, 1);
                 }, 0);
             });
-        </script>
+        </script> -->
 	</head>
 <body<?php if($this->data['body_ondblclick']) { ?> ondblclick="<?php $this->text('body_ondblclick') ?>"<?php } ?>
 <?php if($this->data['body_onload']) { ?> onload="<?php $this->text('body_onload') ?>"<?php } ?>
@@ -286,6 +286,7 @@ class SkinnyTemplate extends QuickTemplate {
 -->
 <?php endif; ?>
 </body></html>
+
 <?php
 	wfRestoreWarnings();
 	} // end of execute() method
