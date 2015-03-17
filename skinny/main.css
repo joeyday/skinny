@@ -17,10 +17,43 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	background: transparent;
 	}
 
+/* @font-face {
+  font-family: greek-hebrew-fallback;
+  src: local(arial);
+  unicode-range: U+0370-03FF, U+0590-05FF, U+1F00-1FFF, U+FB1D-FB4F;
+  } */
+
+@font-face {
+    font-family: Entypo;
+    src: url('entypo/entypo.eot');
+    src: url('entypo/entypo.eot?#iefix') format('embedded-opentype'),
+         url('entypo/entypo.woff') format('woff'),
+         url('entypo/entypo.ttf') format('truetype'),
+         url('entypo/entypo.svg') format('svg');
+    }
+
+@font-face {
+    font-family: Entypo Social;
+    src: url('entypo/entypo-social.eot');
+    src: url('entypo/entypo-social.eot?#iefix') format('embedded-opentype'),
+         url('entypo/entypo-social.woff') format('woff'),
+         url('entypo/entypo-social.ttf') format('truetype'),
+         url('entypo/entypo-social.svg') format('svg');
+    }
+
 body {
 	line-height: 1;
 	}
 
+div#content p,
+div#content li,
+div#content blockquote {
+    hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    }
+    
 ol, ul {
 	list-style: none;
 	}
@@ -33,6 +66,10 @@ blockquote, q {
 :focus {
 	outline: 0;
 	}
+	
+strong, b {
+    font-weight: 600;
+    }
 
 /* remember to highlight inserts somehow! */
 ins {
@@ -48,33 +85,41 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 	}
+	
+html {
+    width: 100%;
+    }
 
 body {
-	font-size: 0.875em; /* 16px·0.875=14px */
+	font-size: 0.875em; /* 4.375vw; */ /* 14 ÷ 320 × 100 = 4.375vw */ /* 16px·0.875=14px */
 	color: #000;
 	margin: 0;
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	background: #aaa;
+	background: #616161;
+	-webkit-text-size-adjust: none;
 	}
 
-div#fixed-background-hack {
+/* div#fixed-background-hack {
     z-index: -1;
     position: fixed;
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-	background: #aaa url('images/background.png') no-repeat center center;
-	background-size: cover;
-    }
+	  background: #aaa url('images/background.png') no-repeat center center;
+	  background-size: cover;
+    } */
 	
 div#globalWrapper {
-    font-family: "futura-pt", Helvetica, Arial, sans-serif;
-    width: 22.857em; /* 14px·22.857=320px */
+    font-family: Skolar, Cambria, Georgia, "Times New Roman", serif; /* Fall-back fonts here are mostly for better Greek unicode support on a variety of devices */
+    font-feature-settings: "kern", "liga";
+    -webkit-font-feature-settings: "kern", "liga";
+    -moz-font-feature-settings: "kern", "liga";
+    width: 100%;
     padding: 2.75em 0;
-    margin: 0 auto;
+    margin: 0;
 	background: transparent;
 	font-size: 100%;
 	line-height: 1.4em;
@@ -82,18 +127,20 @@ div#globalWrapper {
     }
     
 div#column-content {
-    padding: 1.4em;
-	background-color: rgba(255, 255, 255, 0.85);
 	color: #000;
-	z-index: 10;
 	position: relative;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
+	width: 100%;
+	background-color: #fff;
 	}
 	
+div#content {
+    width: 20.057em; /* 14px·22.857=320px */
+    margin: auto;
+    padding: 1.4em;
+    }
+	
 a {
-    	color: #61AE24;
+    color: #61AE24;
 	}
 	
 a:hover {
@@ -106,18 +153,51 @@ a.new {
 
 a.external {
     color: #00A1CB;
-    /* background: url('images/simple_external.png') right center no-repeat;
-    padding: 0 8px 0 0; */
     }
     
 a.extiw,
-a.bibly_reference {
+a.bibly_reference,
+a.ldslinker_reference {
     color: #00A1CB;
     }
+
+a[href*="twitter.com"] {
+    color: #55acee;
+    }
     
+a[href*="twitter.com"]::before {
+    font-family: 'Entypo Social';
+    content: '\F309';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: none;
+    text-indent: 0;
+    vertical-align: bottom;
+    font-size: 200%;
+    padding-right: 0.05em;
+    }
+
+a[href*="facebook.com"] {
+    color: #2e4486;
+    }
+    
+a[href*="facebook.com"]::before {
+    font-family: 'Entypo Social';
+    content: '\F30E';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: none;
+    text-indent: 0;
+    vertical-align: bottom;
+    font-size: 200%;
+    padding-right: 0.05em;
+    }
+
 .plainlinks a {
     background:transparent none repeat scroll 0 0 !important;
-    padding:0 !important;
+    padding: 0 !important;
     color: #61AE24 !important;
     }
     
@@ -135,7 +215,7 @@ h1 {
 	font-size: 1.571em; /* 14px·1.375=22px */
 	margin: 0 0 0.255em; /* 1.571em·0.255=0.4em */
 	border-bottom: 1px solid #999;
-	padding-right: 22px;
+	padding-right: 25px; /* Give room for icon on right, e.g. on featured pages */
 	line-height: 1.2em;
 	}
 
@@ -148,17 +228,18 @@ h2 {
 h3, h4, h5, h6 {
 	font-size: 1em; /* 14px·1=14px */
 	margin: 1em 0 0; /* 14px·1=14px */
-	font-weight: bold;
+	font-weight: 600;
 	}
 	
 h3 + p, h4 + p, h5 + p, h6 + p {
     margin: 0 0 1em 1.4em;
+    color: #616161;
     }
 	
 h3#siteSub {
 	/* font-size: 0.857em;
 	margin: 0;
-	color: #666; */
+	color: #616161; */
 	display: none;
 	padding: 0;
 	margin: 0;
@@ -166,28 +247,38 @@ h3#siteSub {
 	width: 0;
 	}
 
-h1 span.editsection {
+h1 span.editsection,
+h1 span.mw-editsection {
 	font-size: 0.636em; /*22px·0.636=14px */
 	}
 
-h2 span.editsection {
+h2 span.editsection,
+h2 span.mw-editsection {
 	font-size: 0.777em; /* 18px·0.777=14px */
 	}
 
-span.editsection {
+h3 span.editsection,
+h3 span.mw-editsection {
+	font-size: 1em; /* 14px·1=14px */
+	}
+
+span.editsection,
+span.mw-editsection {
     text-transform: lowercase;
     font-weight: normal;
     color: transparent;
     background: transparent;
-    border-radius: 0.3em;
     vertical-align: sub;
+    float: right;
     }
     
-span.editsection a {
+span.editsection a,
+span.mw-editsection a {
     color: #ccc;
     }
     
-span.editsection a:hover {
+span.editsection a:hover,
+span.mw-editsection a:hover {
     text-decoration: none;
     color: #61AE24;
     }
@@ -200,12 +291,13 @@ p {
 	margin: 1em 0;
 	}
 	
-ol, ul {
+ol, ul,
+.mw-content-ltr ol, .mw-content-ltr ul {
 	margin: 1em 0;
 	}
 	
 ol ol, ul ul {
-	margin: 0;
+	margin: 0 !important;
 	}
 
 ul li, ol li {
@@ -243,13 +335,24 @@ th, td {
 
 th {
 	width: 20%;
-	font-weight: normal;
-	padding: 0 0.5em 0.5em 0.5em;
+	font-weight: 600;
+	padding: 0.5em 1em;
 	}
 
 td {
-	padding: 0.5em 1em 0.5em 1em;
+	padding: 0.5em 1em;
 	}
+
+hr {
+    color: #ccc;
+    border: none;
+    height: 1px;
+    border-top: 1px dashed #ccc;
+    }
+    
+mark {
+    background-color: rgba(209,209,0,0.3);
+    }
 
 div.printfooter,
 div#jump-to-nav {
@@ -263,24 +366,25 @@ div#jump-to-nav {
 div#p-logo,
 div#p-personal,
 div#footer {
-    text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.6);
-    color: #000;
+    color: #fff;
     }
 
 div#p-logo a {
-    color: #000;
+    color: #fff;
     }
 
 div#p-personal a,
 div#footer a {
-    color: #000;
+    color: #fff;
     }
 
 div#p-logo {
 	position: absolute;
-	top: 1em;
-	width: 22.357em;
-	padding-right: 0.5em;
+	top: 0;
+	left: 50%;
+	margin-left: -11.4285em;
+	width: 22.357em; /* 14px·22.857=320px */
+	padding: 0.675em 0.5em 0.675em 0;
 	text-align: center;
 	}
 
@@ -288,21 +392,23 @@ div#p-logo {
 div#p-logo a {
 	/* background: transparent url('images/fugue-icons/home.png') no-repeat scroll left center; */
 	/* padding-left: 22px; */
-	font-weight: bold;
+	font-weight: 600;
 	text-decoration: none;
 	line-height: 1.4em;
 	}
 	
 div#p-logo a:before {
-    font-family: FontAwesome;
-    content: '\f015';
+    font-family: Entypo;
+    content: '\2302'; /* This is a house icon. The project-specific icon should be set in MediaWiki:Skinny.css on the wiki. */
     font-weight: normal;
     font-style: normal;
     display: inline-block;
     text-decoration: none;
     text-indent: 0;
-    padding-right: 0.25em;
-    color: #616161;
+    color: #fff;
+    vertical-align: -0.166rem !important;
+    font-size: 210%;
+    padding-right: 0.1em;
     }
 
 	
@@ -330,7 +436,7 @@ div#p-cactions ul {
 	}
 	
 div#p-cactions li {
-	margin: 0 0 1em 0;
+	margin: 0 0 1em;
 	z-index: inherit;
     list-style-type: none;
 	display: inline-block;
@@ -339,140 +445,46 @@ div#p-cactions li {
 
 div#p-cactions li a {
 	font-size: 0.857em; /* 14px·0.857=12px */
-	-moz-border-bottom-left-radius: 3px;
-	-moz-border-bottom-right-radius: 3px;
-	-webkit-border-bottom-left-radius: 3px;
-	-webkit-border-bottom-right-radius: 3px;
-	border-bottom-left-radius: 3px;
-	border-bottom-right-radius: 3px;
-	padding: 0.3em 0.5em 0.4em;
+	padding: 0.5em 0.45em 0.4em;
 	line-height: 1em;
 	z-index: inherit;
 	text-transform: lowercase;
 	text-decoration: none;
-    color: #61AE24;
-    background: rgba(255, 255, 255, 0.6);
+    color: #fff;
+    background: transparent;
 	display: inline-block;
     vertical-align: top;
-    box-shadow: 0 6px 9px -9px #999 inset;
+    white-space: nowrap;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 	}
 	
 div#p-cactions li.selected a, div#p-cactions li a:hover {
-	background: rgba(255, 255, 255, 0.85);
-    padding: 0.5em 0.5em 0.4em;
-    box-shadow: none;
+	background: rgba(255, 255, 255, 1);
+    color: #61ae24;
 	}
 	
 div#p-cactions li.selected a {
-    font-weight: bold;
+    font-weight: 600;
+    padding: 0.642em 0.45em 0.4em;
+    position: relative;
+    top: -0.0714em;
     }
 
 div#p-cactions li.new a {
+    color: #bbb;
+    }
+
+div#p-cactions li.selected.new a, div#p-cactions li.new a:hover {
     color: #D70060;
     }
 
 div#p-cactions ul li#ca-talk {
-    margin-right: 1.4em;
+    margin-right: 1.25em;
     }
 
 div#p-personal {
 	display: none;
-	/* position: absolute;
-	top: 1em;
-	width: 21.457em; /* 22.857-1.4=21.457 */
-	/* margin-right: 1.4em;
-	text-align: right; */
-	}
-
-div#p-personal h5 {
-	display: none;
-	height: 0;
-	width: 0;
-	padding: 0;
-	margin: 0;
-	}
-
-div#p-personal ul {
-	line-height: 1.4em;
-	margin: 0;
-	padding: 0;
-	}
-
-div#p-personal ul li {
-	display: inline;
-	margin: 0;
-	padding: 0;
-	}
-	
-div#p-personal ul li:after {
-	/* content: " ·";*/
-	}
-
-div#p-personal ul li#pt-anonlogin:after,
-div#p-personal ul li#pt-login:after,
-div#p-personal ul li#pt-logout:after {
-	content: "";
-	}
-
-div#p-personal ul li#pt-logout:before {
-	content: "[";
-	}
-
-div#p-personal ul li#pt-logout:after {
-	content: "]";
-	}
-	
-div#p-personal ul li#pt-userpage {
-	text-transform: none;
-	}
-	
-div#p-personal ul li#pt-userpage a,
-div#p-personal ul li#pt-anonlogin a,
-div#p-personal ul li#pt-login a {
-	/* background: transparent no-repeat left 0px; */
-	/* padding-left: 22px; */
-	}
-
-div#p-personal ul li#pt-userpage a {
-	/* background-image: url('images/fugue-icons/user.png'); */
-	}
-
-div#p-personal ul li#pt-anonlogin a,
-div#p-personal ul li#pt-login a {
-	/* background-image: url('images/fugue-icons/user-silhouette.png'); */
-	}
-	
-div#p-personal ul li#pt-userpage a:before,
-div#p-personal ul li#pt-anonlogin a:before,
-div#p-personal ul li#pt-login a:before {
-    font-family: fontello;
-    content: '\61';
-    font-weight: normal;
-    font-style: normal;
-    display: inline-block;
-    text-decoration: none;
-    text-indent: 0;
-    padding-right: 0.25em;
-    vertical-align: 10%;
-    color: #616161;
-    }
-
-div#p-personal ul li#pt-logout {
-	font-size: 0.857em; /* 14px·0.857=12px */
-	color: #666;
-	}
-
-
-div#p-personal ul li {
-	text-transform: lowercase;
-	}
-	
-div#p-personal ul li a {
-	text-decoration: none;
-	}
-	
-div#p-personal ul li a:hover {
-	text-decoration: underline;
 	}
 	
 textarea {
@@ -497,15 +509,29 @@ div.floatright {
 	
 div#catlinks {
 	font-size: 0.857em; /* 14px·0.857=12px */
-	border: 1px solid #ccc;
-	/* background: #f7f7f7 url('images/fugue-icons/price-tag.png') 0.583em 0.583em no-repeat;
-	padding: 0.583em 0.875em 0.583em 2.475em; */
-	padding: 0.583em 0.875em;
-	margin: 1.167em 0 0;
+	margin: 2em 0 0;
+	text-align: center;
 	}
 	
+div#catlinks a[href*="Special:Categories"] {
+    color: #000;
+    }
+    
+div#mw-normal-catlinks {
+    display: inline-block;
+    background: #f9f9f9;
+    padding: 0.25em 0.75em;
+    border-radius: 0.25em;
+    margin: 0.25em auto;
+    }
+    
+div#mw-hidden-catlinks {
+    /* Hide always, regardless of whether an editor is logged in. */
+    /* display: none !important; */
+    }
+
 div#contentSub {
-	color: #666;
+	color: #616161;
 	font-size: 0.857em; /* 14px·0.857=12px */
 	margin: 0 0 1.167em 1em; /* 12px·1.167=14px */
 	}
@@ -548,8 +574,8 @@ div.boilerplate.error {
 div#siteNotice {
     border-top: 1px dashed #ccc;
     border-bottom: 1px dashed #ccc;
-    /* background: #fff url('images/fugue-icons/light-bulb.png') 0.6em center no-repeat;
-	padding: 0.5em 0.75em 0.5em 2.5em; */
+    background-color: rgba(255, 255, 255, 0.5);
+	/* padding: 0.5em 0.75em 0.5em 2.5em; */
 	padding: 0.5em 0.75em;
 	margin: 0 0 1.4em;
 	}
@@ -558,22 +584,26 @@ div#siteNotice p {
 	margin: 0;
 	}
 	
+div#siderail {
+    width: 22.357em;
+    margin: auto;
+}
+	
 div#p-navigation,
 div#p-search,
 div#p-tb {
-    width: 7.928em;
-    margin: 0 0 1em 0;
-    padding: 1.4em;
-    background: rgba(255, 255, 255, 0.6);
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    width: 10.728em;
+    margin: 0 0 1.5em 0;
+    /* padding: 1.4em; */
+    background: transparent;
     text-align: center;
+    color: #fff;
     }
 
 div#p-navigation h5,
 div#p-tb h5,
 div#p-search h5 {
+    display: none;
     font-size: 0.857em; /* 14px¬0.857=12px */
     margin: 0 0 0.4em;
     clear: none;
@@ -593,33 +623,45 @@ div#p-tb ul li {
 
 div#p-navigation a,
 div#p-tb a {
-    color: #61AE24;
+    color: #fff;
     }
 
 div#p-navigation {
-    display: none;
+    /* display: none; */
+    float: left;
     }
     
 div#p-tb {
-    float: left;
-    clear: both;
+    float: right;
+    /* clear: both; */
     }
 
-div#p-tb a#feed-rss {
-    margin-right: 0.5em;
+div#p-tb a.feedlink {
+    background: none;
+    padding-left: 0;
     }
-
+    
+div#p-tb a.feedlink:before {
+    font-family: Entypo;
+    content: '\E73A'; /* This is a house icon. The project-specific icon should be set in MediaWiki:Skinny.css on the wiki. */
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    text-decoration: none;
+    text-indent: 0;
+    vertical-align: bottom !important;
+    font-size: 150%;
+    padding-right: 0.1em;
+    }
+    
+div#p-tb li#t-recentchangeslinked,
+div#p-tb li#t-upload,
+div#p-tb li#t-print {
+    display: none;
+    }
+    
 div#p-search {
     float: right;
-    }
-
-div#p-search div#searchBody {
-    text-align: center;
-    }
-
-div#p-search input#searchInput {
-    width: 100%;
-    margin-bottom: 0.5em;
     }
 
 div#footer {
@@ -630,8 +672,13 @@ div#footer {
     }
 
 div#footer ul li {
-    display: inline;
     margin: 0;
+    display: inline;
+    }
+
+div#footer ul li#about,
+div#footer ul li#privacy {
+    display: none;
     }
 
 div#footer ul li#about:after,
@@ -639,16 +686,14 @@ div#footer ul li#privacy:after {
     content: " ·";
     }
 
-div#footer ul li#lastmod,
-div#footer ul li#viewcount,
-div#footer ul li#copyright {
-    display: block;
-    }
-
 div#footer ul li#copyright {
     margin-top: 0.75em;
     }
 
+div#footer ul li#copyright:after {
+    content: " ·";
+    }
+    
 div#footer a {
     text-decoration: none;
     }
@@ -657,7 +702,7 @@ div#footer a:hover {
     text-decoration: underline;
     }
 
-small {
+small, abbr {
     font-size: 0.857em; /* 14px·0.857=12px */
     }
 
@@ -673,7 +718,7 @@ div.topicon {
     }
 
 dt {
-    font-weight: bold;
+    font-weight: 600;
     margin: 1em 0 -1em;
     }
 
@@ -686,6 +731,10 @@ blockquote {
     margin:1em 0.4em;
     padding-left:1em;
     border-left: 1px solid #01A4A4;
+    }
+
+#toc {
+    display: none !important;
     }
 
 #toc #toctitle, .toc #toctitle, #toc .toctitle, .toc .toctitle {
@@ -703,60 +752,61 @@ blockquote {
 #toc h2, .toc h2 {
     font-size: 1.167em; /* 12px·1.167=14px */
     display: inline;
-    font-weight: bold;
+    font-weight: 600;
     border: none;
     }
 
 #toc ul li, .toc ul li {
     list-style-image: none;
-    list-style-type: none;
-    margin-left: 0;
+    list-style-type: decimal;
+    margin-left: 1em;
     padding-left: 0;
     }
 
-#toc ul ul li, .toc ul ul li {
-    margin-left: 1.4em;
+#toc ul li a, .toc ul li a {
+    color: #000;
     }
 
-#toc span.tocnumber:after, .toc span.tocnumber:after {
-    content: "."
+#toc span.tocnumber {
+    display: none;
     }
 
-div#column-content {
-    background-repeat: no-repeat;
-    background-position: 20.314em 1.6em; /* 14px?1.143=16px 22.857-1.4-1.143=20.314 */
+table.mw-specialpages-table td {
+    font-size: 0.857em; /* 14px·0.857=12px */
+    padding: 0;
     }
 
-/* .ns-1 div#column-content,
-.ns-3 div#column-content,
-.ns-5 div#column-content,
-.ns-7 div#column-content,
-.ns-9 div#column-content,
-.ns-11 div#column-content,
-.ns-13 div#column-content,
-.ns-15 div#column-content {
-    background-image: url('images/fugue-icons/balloon.png');
+table.mw-specialpages-table td:first-child {
+    padding-right: 1em;
+    }
+    
+table.mw-specialpages-table td:nth-child(even) {
+    display: none;
+    visibility: hidden;
     }
 
-.ns-6 div#column-content {
-    background-image: url('images/fugue-icons/image.png');
+table.mw-specialpages-table td li {
+    margin-left: 1.5em;
+    padding-left: 1em;
+    text-indent: -1em;
     }
 
-.ns-12 div#column-content {
-    background-image: url('images/fugue-icons/question-frame.png');
+h4.mw-specialpagesgroup {
+    border-bottom: 1px solid #ccc;
+    font-size: 1.285em;
+    margin: 1em 0 0em;
+    background: transparent;
     }
-
-.ns-14 div#column-content {
-    background-image: url('images/fugue-icons/price-tag.png');
+    
+.mw-specialpagerestricted {
+    font-weight: normal;
     }
-
-.page-Project_Error_404 div#column-content {
-    background-image: url('images/fugue-icons/exclamation.png');
+    
+.mw-specialpages-note-top,
+.mw-specialpages-notes {
+    display: none;
+    visibility: hidden;
     }
-
-.page-Special_Contact div#column-content {
-    background-image: url('images/fugue-icons/postage-stamp.png');
-    } */
 
 .page-Special_Contact table#mailheader tr {
     display: block;
@@ -839,6 +889,11 @@ table#sv-ext tr {
     margin: 0 0 1em 1.5em;
     }
 
+table#sv-ext tr th {
+    font-weight: 600;
+    color: #000;
+    }
+
 table#sv-ext tr td:only-of-type {
     display: block;
     text-indent: 0;
@@ -894,7 +949,7 @@ table#sv-software td {
 sup.reference {
     font-size: 0.857em; /* 14px·0.857=12px */
     vertical-align: baseline;
-    top: -0.4em;
+    top: -0.2em;
     position: relative;
     margin-left: 0.2em;
     margin-right: 0.2em;
@@ -911,10 +966,7 @@ hr.references {
 ol.references {
 	color: #444;
 	font-size: 0.857em; /* 14px·0.857=12px */
-	}
-	
-img[alt="Joey Day (Signature.png)"] {
-	margin-left: -0.5em;
+	margin: 0;
 	}
 	
 table.mw-allpages-table-form legend {
@@ -957,7 +1009,15 @@ table.mw-allpages-table-chunk td div.allpagesredirect:after {
     content: " (redirect)";
     font-size: 0.857em; /* 14px·0.857=12px */
     font-style: italic;
-    color: #666;
+    color: #616161;
+    }
+
+.alphabeticalindexredirect {
+    color: #616161;
+    }
+
+.alphabeticalindexredirect small {
+    /* font-style: italic; */
     }
 	
 ul.special li {
@@ -968,6 +1028,15 @@ ul.special li span.mw-usertoollinks {
 	display: none;
 	visibility: hidden;
 	}
+
+div#mw-subcategories h3,
+div#mw-pages h3 {
+    display: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    }
 
 div#mw-subcategories,
 div#mw-pages {
@@ -1067,7 +1136,7 @@ ul.mw-search-results li div.mw-search-result-data {
     }
 
 table.wikitable {
-    background-color: transparent;
+    background-color: #fff;
     border: 1px #616161 solid;
     }
 
@@ -1089,31 +1158,192 @@ table.wikitable.nowrap tbody td {
     white-space: nowrap;
     }
     
-table.wikitable tr:nth-child(odd) td {
-    background-color: rgba(255, 255, 255, 0.05);
+table.wikitable tr:nth-child(even) td {
+    background-color: #f9f9f9;
+    }
+
+#searchBody {
+    font-size: 0.857em;
     }
     
-table.wikitable tr:nth-child(odd) td {
-    background-color: #fff;
+#searchInput {
+    width: 70%;
+    margin: 0 auto 0.5em;
+    display: block;
+    font-size: 0.857em;
+    font-family: Skolar, serif;
+    background: #919191;
+    color: #fff;
+    border: none;
+    border-radius: 3em;
+    padding: 0.1em 0.6em;
     }
     
+#searchGoButton,
+#mw-searchButton {
+    border: 2px solid #aaa;
+    background: #616161;
+    font-family: Skolar, serif;
+    font-size: 0.857em;
+    padding: 0.25em 0.5em;
+    margin: 0.5em 0.25em;
+    border-radius: 3em;
+    color: #fff;
+    }
+
+#searchGoButton:hover,
+#mw-searchButton:hover {
+    background: #fff;
+    color: #616161;
+    }
+
+
+#wpTextbox1,
+#wpSummary {
+    font-family: monospace;
+    font-size: 100%;
+    }
+
+div.editButtons {
+    text-align: center;
+    }
     
-/* when the user's browser size is greater than 500px */
-@media screen and (min-width: 31.25em) {
+#wpSave,
+#wpPreview,
+#wpDiff {
+    border: 2px solid #aaa;
+    background: #fff;
+    font-family: Skolar, serif;
+    font-size: 100%;
+    padding: 0.25em 0.5em;
+    margin: 0.5em 0;
+    border-radius: 3em;
+    }
+    
+#wpSave:hover,
+#wpPreview:hover,
+#wpDiff:hover {
+    background: #616161;
+    color: #fff;
+    }
+    
+span.editHelp {
+    display: block;
+    }
+    
+.entypo-icon,
+.topic-badge {
+    font-family: Entypo;
+    font-size: 200%;
+    cursor: default;
+    vertical-align: -0.1em;
+    }
+    
+.topic-badge {
+    position: absolute;
+    margin-left: -5.0142em;
+    width: 10.0285em;
+    text-align: right;
+    top: 0.9em;
+    left: 50%;
+    }
+    
+.message-box {
+    border: 1px solid #616161;
+    background-color: #f9f9f9;
+    padding: 0.5em 0.75em;
+    font-size: 0.857em;
+    margin-bottom: 1em;
+    }
+
+.message-box span {
+    font-family: Entypo;
+    font-size: 210%;
+    cursor: default;
+    float: left;
+    }
+    
+.message-box p {
+    margin: 0 0 0 28px;
+    padding: 0;
+    }
+
+
+
+/* This is disgusting, but MobileSafari isn't playing nice with vw units.
+   Instead of scaling fluidly from ~320px up to ~365px, the first four break-
+   points are now hardcoded for popular mobile device viewport widths. Font
+   size begins at 14px (0.875em), with a layout optimized for very popular
+   viewport width of 320px. */
+   
+/* This breakpoint is for popular Android viewport width of 360px. */
+@media screen and (min-width: 360px) {
     body {
-        font-size: 1em;
+        font-size: 0.984em; /* 0.875em × 360 ÷ 320 = 0.984em = 15.75px */
         }
 }
 
-/* when the user's browser size is greater than 700px */
-@media screen and (min-width: 43.75em) {
-    div#globalWrapper {
+/* This breakpoint is for new iPhone 6 viewport width of 375px. */
+@media screen and (min-width: 375px) {
+    body {
+        font-size: 1.025em; /* 0.875em × 375 ÷ 320 = 1.025em = ~16.4px */
+        }
+}
+
+/* This breakpoint is for new iPhone 6 Plus viewport width of 414px. */
+@media screen and (min-width: 414px) {
+    body {
+        font-size: 1.132em; /* 0.875em × 414 ÷ 320 = 1.132em = ~18.1px */
+        }
+}
+
+/* Font size scales with viewport intially. When font
+   size hits 16px (~365px), hold it there.
+@media screen and (min-width: 22.875em) {
+    body {
+        font-size: 1em; */ /* 16px */ /*
+        }
+} */
+
+/* When screen is exactly big enough to accomodate right sidebar,
+   activate it and start scaling font with viewport again.
+   Width of page with sidebar = 34.985em, but since we're already
+   at font size of 1.132em: 34.985 × 1.132 = 39.604em */
+@media screen and (min-width: 39.604em) {
+    body {
+        background: linear-gradient(to right, #fff 50%, #616161 50%);
+        /* font-size: 2.858vw; */
+        }
+        
+    div#fixed-background-hack {
+        /* This fixes the background when the page is short, but
+           doesn't work correctly when the page is long, so the 
+           background really does need to be set twice, here and
+           in the rule for div#globalWrapper below. */
+        background: linear-gradient(to right, #fff 23.357em, #616161 23.357em);
+        position: absolute;
         width: 34.985em;
-        padding: 1.75em 0 2.75em;
+        left: 50%;
+        margin-left: -17.4925em;
+        top: 0;
+        bottom: 0;
+    }
+        
+    div#globalWrapper {
+        background: linear-gradient(to right, #fff 23.357em, #616161 23.357em);
+        width: 35em; /* I have no idea why 35em works better here, but it hides a weird cosmetic bug in Safari. */
+        margin: 0 auto;
+        padding: 0 0 2.75em;
         }
         
     div#column-content {
         width: 20.057em;
+        padding: 1.4em;
+        }
+        
+    div#content {
+        width: auto;
+        padding: 0;
         }
         
     div#column-one {
@@ -1130,15 +1360,56 @@ table.wikitable tr:nth-child(odd) td {
         } */
 
     div#p-logo {
-        right: 0;
+        right: 0 !important;
+        left: auto;
         width: 10.228em;
         text-align: center;
         top: 3.5em;
+        margin-left: 0;
+        }
+    
+    div#p-cactions {
+        border-top: 1px solid #999;
+        width: 20.057em;
+        margin: auto;
+        }
+    
+    div#p-cactions li a {
+        color: #61ae24;
+        border-bottom: 1px #fff solid;
+        border-left: 1px #fff solid;
+        border-right: 1px #fff solid;
+    	}
+    	
+    div#p-cactions li.selected a {
+    	background: rgba(255, 255, 255, 1);
+        border-bottom: 1px #999 solid;
+        border-left: 1px #999 solid;
+        border-right: 1px #999 solid;
+    	}
+
+    div#p-cactions li a:hover {
+    	background: rgba(255, 255, 255, 1);
+        border-bottom: 1px #999 solid;
+        border-left: 1px #999 solid;
+        border-right: 1px #999 solid;
+    	}
+
+    div#p-cactions li a:hover {
+        background: transparent;
+        }
+
+    div#p-cactions li.selected a:hover {
+        background: #fff;
+        }
+        
+    div#p-cactions li.new a {
+        color: #D70060;
         }
         
     div#siderail {
         position: absolute;
-        top: 5.5em;
+        top: 7em;
         right: 0;
         width: 10.728em;
         }
@@ -1147,13 +1418,47 @@ table.wikitable tr:nth-child(odd) td {
         display: block;
         }
         
+    div#p-navigation,
     div#p-tb,
     div#p-search {
         float: none;
         }
+        
+    div#p-navigation li#n-Home-page {
+        display: none;
+        }
+        
+    div#p-tb li#t-print {
+        display: block;
+        }
 
     div#footer {
         width: 26.671em;
+        color: #000;
         }
         
+    div#footer a {
+        color: #000;
+        }
+        
+    div#footer ul li#copyright {
+        display: block;
+        }
+        
+    div#footer ul li#copyright:after {
+        content: none;
+        }
+
+    div#footer ul li#about {
+        display: inline;
+        }
+
+}
+
+/* When big enough to accomodate a font of 22px: 34.985 × 1.375 = 48.104em, hold it there. */
+@media screen and (min-width: 48.104em) {
+    body {
+        font-size: 1.375em; /* 22px */
+        }
+    
 }

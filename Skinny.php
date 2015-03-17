@@ -46,6 +46,75 @@ class SkinSkinny extends SkinTemplate {
 
 		# $out->addStyle( 'monobook/rtl.css', 'screen', '', 'rtl' );
 	}
+	
+	/* Overriding this function so I can eliminate
+	   a single space between listed categories and
+	   to add an Entypo icon before the word
+	   “Categories”. */
+	function getCategoryLinks() {
+		global $wgOut, $wgUseCategoryBrowser;
+		global $wgContLang, $wgUser;
+
+		if( count( $wgOut->mCategoryLinks ) == 0 ) {
+			return '';
+		}
+
+		# Separator
+		$sep = wfMsgExt( 'catseparator', array( 'parsemag', 'escapenoentities' ) );
+
+		// Use Unicode bidi embedding override characters,
+		// to make sure links don't smash each other up in ugly ways.
+		$dir = $wgContLang->getDir();
+		$embed = "<span dir='$dir'>";
+		$pop = '</span>';
+
+		$allCats = $wgOut->getCategoryLinks();
+		$s = '';
+		$colon = wfMsgExt( 'colon-separator', 'escapenoentities' );
+		if ( !empty( $allCats['normal'] ) ) {
+		    // This is the only line I’ve modified, removing a space between {$pop} and {$sep}. —Joey
+			$t = $embed . implode( "{$pop}{$sep} {$embed}" , $allCats['normal'] ) . $pop;
+
+			$msg = wfMsgExt( 'pagecategories', array( 'parsemag', 'escapenoentities' ), count( $allCats['normal'] ) );
+			$s .= '<div id="mw-normal-catlinks"><span class="entypo-icon">&#128193;</span> ' .
+				$this->link( Title::newFromText( wfMsgForContent( 'pagecategorieslink' ) ), $msg )
+				. $colon . $t . '</div>';
+		}
+
+		# Hidden categories
+		if ( isset( $allCats['hidden'] ) ) {
+			if ( $wgUser->getBoolOption( 'showhiddencats' ) ) {
+				$class ='mw-hidden-cats-user-shown';
+			} elseif ( $this->mTitle->getNamespace() == NS_CATEGORY ) {
+				$class = 'mw-hidden-cats-ns-shown';
+			} else {
+				$class = 'mw-hidden-cats-hidden';
+			}
+			$s .= "<div id=\"mw-hidden-catlinks\" class=\"$class\">" .
+				wfMsgExt( 'hidden-categories', array( 'parsemag', 'escapenoentities' ), count( $allCats['hidden'] ) ) .
+				$colon . $embed . implode( "$pop $sep $embed", $allCats['hidden'] ) . $pop .
+				'</div>';
+		}
+
+		# optional 'dmoz-like' category browser. Will be shown under the list
+		# of categories an article belong to
+		if( $wgUseCategoryBrowser ) {
+			$s .= '<br /><hr />';
+
+			# get a big array of the parents tree
+			$parenttree = $this->mTitle->getParentCategoryTree();
+			# Skin object passed by reference cause it can not be
+			# accessed under the method subfunction drawCategoryBrowser
+			$tempout = explode( "\n", Skin::drawCategoryBrowser( $parenttree, $this ) );
+			# Clean out bogus first entry and sort them
+			unset( $tempout[0] );
+			asort( $tempout );
+			# Output one per line
+			$s .= implode( "<br />\n", $tempout );
+		}
+
+		return $s;
+	}
 }
 
 /**
@@ -81,11 +150,13 @@ class SkinnyTemplate extends QuickTemplate {
 	} ?>xml:lang="<?php $this->text('lang') ?>" lang="<?php $this->text('lang') ?>" dir="<?php $this->text('dir') ?>">
 	<head>
     	<meta http-equiv="Content-Type" content="<?php $this->text('mimetype') ?>; charset=<?php $this->text('charset') ?>" />
-		<?php if (strpos($_SERVER['HTTP_USER_AGENT'],"iPhone") > 0): ?>
-		    <meta name="viewport" content="width=320,maximum-scale=1.0" />
-		<?php else: ?>
+		<?php /* if (strpos($_SERVER['HTTP_USER_AGENT'],"iPhone") > 0): ?>
+		    <meta name="viewport" content="width=device-width,maximum-scale=1.0" />
+		<?php elseif (strpos($_SERVER['HTTP_USER_AGENT'],"iPad") > 0): ?>
+		    <meta name="viewport" content="width=device-width,maximum-scale=1.0" />
+		<?php else: */ ?>
 		    <meta name="viewport" content="width=device-width" />
-		<?php endif; ?>
+		<?php /* endif; */ ?>
 		<?php $this->html('headlinks') ?>
         <?php if($this->data['title'] == "Project:Home") { ?>
         <title><?php echo $this->text('sitename'); ?></title>
@@ -122,17 +193,8 @@ class SkinnyTemplate extends QuickTemplate {
 		if($this->data['trackbackhtml']) print $this->data['trackbackhtml']; ?>
 		<script src="/bibly-hack.js"></script>
 		<link href="http://code.bib.ly/bibly.min.css" rel="stylesheet" />
+		<script src="/lds-linker.js"></script>
 		<script src="/jquery-1.7.2.min.js" type="text/javascript"></script>
-		<script src="/hyphenate-3.3.0.min.js" type="text/javascript"></script>
-		<script type="text/javascript">
-			var hyphenatorSettings = {
-				selectorfunction: function () {
-					return $('div#content p').get();
-				}
-			};
-			Hyphenator.config(hyphenatorSettings);
-			Hyphenator.run();
-		</script>
 		<!-- <script type="text/javascript">
             // When ready...
             window.addEventListener("load",function() {
@@ -143,6 +205,36 @@ class SkinnyTemplate extends QuickTemplate {
                 }, 0);
             });
         </script> -->
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png?v=2" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png?v=2" />
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png?v=2" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png?v=2" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png?v=2" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png?v=2" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png?v=2" />
+        <?php /* <script type="text/javascript">
+            // update viewport width on orientation change
+            function adapt_to_orientation() {
+                // determine new screen_width
+                var screen_width;
+                if (window.orientation == 0 || window.orientation == 180) {
+                    // portrait
+                    screen_width = 'device-width';
+                } else if (window.orientation == 90 || window.orientation == -90) {
+                    // landscape
+                    screen_width = 'device-height';
+                }
+                // resize meta viewport
+                $('meta[name=viewport]').attr('content', 'width='+screen_width);
+            }
+            $(document).ready(function() {
+                // bind to handler
+                $('body').bind('orientationchange', adapt_to_orientation);
+                
+                // call now
+                adapt_to_orientation();
+            });
+        </script> */ ?>
 	</head>
 <body<?php if($this->data['body_ondblclick']) { ?> ondblclick="<?php $this->text('body_ondblclick') ?>"<?php } ?>
 <?php if($this->data['body_onload']) { ?> onload="<?php $this->text('body_onload') ?>"<?php } ?>
@@ -192,7 +284,7 @@ class SkinnyTemplate extends QuickTemplate {
         						&& in_array( $key, array( 'edit', 'watch', 'unwatch' ))) {
         							echo $skin->tooltip( "ca-$key" );
         						} else {
-        							echo $skin->tooltipAndAccesskey( "ca-$key" );
+        							echo $skin->tooltipAndAccesskeyAttribs( "ca-$key" );
         						}
         						echo '>'.htmlspecialchars($tab['text']).'</a></li>';
         					}
@@ -208,7 +300,7 @@ class SkinnyTemplate extends QuickTemplate {
         					if ($key != "mytalk" && $key != "preferences"  && $key != "watchlist" && $key != "mycontris" && $key != "anonuserpage" && $key != "anontalk" && $key != "logout") { ?>
         						<li id="<?php echo Sanitizer::escapeId( "pt-$key" ) ?>"<?php
         							if ($item['active']) { ?> class="active"<?php } ?>><a href="<?php
-        						echo htmlspecialchars($item['href']) ?>"<?php echo $skin->tooltipAndAccesskey('pt-'.$key) ?><?php
+        						echo htmlspecialchars($item['href']) ?>"<?php echo $skin->tooltipAndAccesskeyAttribs('pt-'.$key) ?><?php
         						if(!empty($item['class'])) { ?> class="<?php
         						echo htmlspecialchars($item['class']) ?>"<?php } ?>><?php
         						echo htmlspecialchars($item['text']) ?></a></li>
@@ -219,7 +311,7 @@ class SkinnyTemplate extends QuickTemplate {
         	</div>
         	<div class="portlet" id="p-logo">
         		<a href="<?php echo htmlspecialchars($this->data['nav_urls']['mainpage']['href'])?>" <?php
-        			echo $skin->tooltipAndAccesskey('p-logo') ?>><?php echo $this->text('sitename') ?></a>
+        			echo $skin->tooltipAndAccesskeyAttribs('p-logo') ?>><?php echo $this->text('sitename') ?></a>
         	</div>
         	<script type="<?php $this->text('jsmimetype') ?>"> if (window.isMSIE55) fixalpha(); </script>
         	<div id="siderail">
@@ -300,11 +392,11 @@ class SkinnyTemplate extends QuickTemplate {
 		<div id="searchBody" class="pBody">
 			<form action="<?php $this->text('wgScript') ?>" id="searchform"><div>
 				<input type='hidden' name="title" value="<?php $this->text('searchtitle') ?>"/>
-				<input id="searchInput" name="search" type="text"<?php echo $this->skin->tooltipAndAccesskey('search');
+				<input id="searchInput" name="search" type="text"<?php echo $this->skin->tooltipAndAccesskeyAttribs('search');
 					if( isset( $this->data['search'] ) ) {
 						?> value="<?php $this->text('search') ?>"<?php } ?> />
-				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="<?php $this->msg('searcharticle') ?>"<?php echo $this->skin->tooltipAndAccesskey( 'search-go' ); ?> /><?php if ($wgUseTwoButtonsSearchForm) { ?>
-				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="<?php $this->msg('searchbutton') ?>"<?php echo $this->skin->tooltipAndAccesskey( 'search-fulltext' ); ?> /><?php } else { ?>
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="<?php $this->msg('searcharticle') ?>"<?php echo $this->skin->tooltipAndAccesskeyAttribs( 'search-go' ); ?> /><?php if ($wgUseTwoButtonsSearchForm) { ?>
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="<?php $this->msg('searchbutton') ?>"<?php echo $this->skin->tooltipAndAccesskeyAttribs( 'search-fulltext' ); ?> /><?php } else { ?>
 
 				<div><a href="<?php $this->text('searchaction') ?>" rel="search"><?php $this->msg('powersearch-legend') ?></a></div><?php } ?>
 
@@ -325,23 +417,23 @@ class SkinnyTemplate extends QuickTemplate {
 		if($this->data['notspecialpage']) { ?>
 				<li id="t-whatlinkshere"><a href="<?php
 				echo htmlspecialchars($this->data['nav_urls']['whatlinkshere']['href'])
-				?>"<?php echo $this->skin->tooltipAndAccesskey('t-whatlinkshere') ?>><?php $this->msg('whatlinkshere') ?></a></li>
+				?>"<?php echo $this->skin->tooltipAndAccesskeyAttribs('t-whatlinkshere') ?>><?php $this->msg('whatlinkshere') ?></a></li>
 <?php
 			if( $this->data['nav_urls']['recentchangeslinked'] ) { ?>
 				<li id="t-recentchangeslinked"><a href="<?php
 				echo htmlspecialchars($this->data['nav_urls']['recentchangeslinked']['href'])
-				?>"<?php echo $this->skin->tooltipAndAccesskey('t-recentchangeslinked') ?>><?php $this->msg('recentchangeslinked') ?></a></li>
+				?>"<?php echo $this->skin->tooltipAndAccesskeyAttribs('t-recentchangeslinked') ?>><?php $this->msg('recentchangeslinked') ?></a></li>
 <?php 		}
 		}
 		if(isset($this->data['nav_urls']['trackbacklink'])) { ?>
 			<li id="t-trackbacklink"><a href="<?php
 				echo htmlspecialchars($this->data['nav_urls']['trackbacklink']['href'])
-				?>"<?php echo $this->skin->tooltipAndAccesskey('t-trackbacklink') ?>><?php $this->msg('trackbacklink') ?></a></li>
+				?>"<?php echo $this->skin->tooltipAndAccesskeyAttribs('t-trackbacklink') ?>><?php $this->msg('trackbacklink') ?></a></li>
 <?php 	}
 		if($this->data['feeds']) { ?>
 			<li id="feedlinks"><?php foreach($this->data['feeds'] as $key => $feed) {
 					?><a id="<?php echo Sanitizer::escapeId( "feed-$key" ) ?>" href="<?php
-					echo htmlspecialchars($feed['href']) ?>" rel="alternate" type="application/<?php echo $key ?>+xml" class="feedlink"<?php echo $this->skin->tooltipAndAccesskey('feed-'.$key) ?>><?php echo htmlspecialchars($feed['text'])?></a>&nbsp;
+					echo htmlspecialchars($feed['href']) ?>" rel="alternate" type="application/<?php echo $key ?>+xml" class="feedlink"<?php echo $this->skin->tooltipAndAccesskeyAttribs('feed-'.$key) ?>><?php echo htmlspecialchars($feed['text'])?></a>&nbsp;
 					<?php } ?></li><?php
 		}
 
@@ -349,18 +441,18 @@ class SkinnyTemplate extends QuickTemplate {
 
 			if($this->data['nav_urls'][$special]) {
 				?><li id="t-<?php echo $special ?>"><a href="<?php echo htmlspecialchars($this->data['nav_urls'][$special]['href'])
-				?>"<?php echo $this->skin->tooltipAndAccesskey('t-'.$special) ?>><?php $this->msg($special) ?></a></li>
+				?>"<?php echo $this->skin->tooltipAndAccesskeyAttribs('t-'.$special) ?>><?php $this->msg($special) ?></a></li>
 <?php		}
 		}
 
 		if(!empty($this->data['nav_urls']['print']['href'])) { ?>
 				<li id="t-print"><a href="<?php echo htmlspecialchars($this->data['nav_urls']['print']['href'])
-				?>" rel="alternate"<?php echo $this->skin->tooltipAndAccesskey('t-print') ?>><?php $this->msg('printableversion') ?></a></li><?php
+				?>" rel="alternate"<?php echo $this->skin->tooltipAndAccesskeyAttribs('t-print') ?>><?php $this->msg('printableversion') ?></a></li><?php
 		}
 
 		if(!empty($this->data['nav_urls']['permalink']['href'])) { ?>
 				<li id="t-permalink"><a href="<?php echo htmlspecialchars($this->data['nav_urls']['permalink']['href'])
-				?>"<?php echo $this->skin->tooltipAndAccesskey('t-permalink') ?>><?php $this->msg('permalink') ?></a></li><?php
+				?>"<?php echo $this->skin->tooltipAndAccesskeyAttribs('t-permalink') ?>><?php $this->msg('permalink') ?></a></li><?php
 		} elseif ($this->data['nav_urls']['permalink']['href'] === '') { ?>
 				<li id="t-ispermalink"<?php echo $this->skin->tooltip('t-ispermalink') ?>><?php $this->msg('permalink') ?></li><?php
 		}
@@ -404,7 +496,7 @@ class SkinnyTemplate extends QuickTemplate {
 <?php 			foreach($cont as $key => $val) { ?>
 				<li id="<?php echo Sanitizer::escapeId($val['id']) ?>"<?php
 					if ( $val['active'] ) { ?> class="active" <?php }
-				?>><a href="<?php echo htmlspecialchars($val['href']) ?>"<?php echo $this->skin->tooltipAndAccesskey($val['id']) ?>><?php echo htmlspecialchars($val['text']) ?></a></li>
+				?>><a href="<?php echo htmlspecialchars($val['href']) ?>"<?php echo $this->skin->tooltipAndAccesskeyAttribs($val['id']) ?>><?php echo htmlspecialchars($val['text']) ?></a></li>
 <?php			} ?>
 			</ul>
 <?php   } else {
