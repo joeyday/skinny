@@ -30,7 +30,7 @@ class SkinSkinny extends SkinTemplate {
 		parent::setupSkinUserCss( $out );
 
 		# Append to the default screen common & print styles...
-		$out->addStyle( 'skinny/main.css', 'screen' );
+		$out->addStyle( 'skinny/main.css?5', 'screen' );
 		$out->addStyle( 'skinny/font-awesome.min.css', 'screen' );
 		$out->addStyle( 'skinny/fontello/css/fontello.css', 'screen' );
 		
@@ -191,10 +191,10 @@ class SkinnyTemplate extends QuickTemplate {
 		<script type="<?php $this->text('jsmimetype') ?>"><?php $this->html('userjsprev') ?></script>
 <?php	}
 		if($this->data['trackbackhtml']) print $this->data['trackbackhtml']; ?>
+		<script src="/lds-linker.js"></script>
 		<script src="/bibly-hack.js"></script>
 		<link href="http://code.bib.ly/bibly.min.css" rel="stylesheet" />
-		<script src="/lds-linker.js"></script>
-		<script src="/jquery-1.7.2.min.js" type="text/javascript"></script>
+		<!-- <script src="/jquery-1.7.2.min.js" type="text/javascript"></script> -->
 		<!-- <script type="text/javascript">
             // When ready...
             window.addEventListener("load",function() {
@@ -205,13 +205,25 @@ class SkinnyTemplate extends QuickTemplate {
                 }, 0);
             });
         </script> -->
-        <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png?v=2" />
-        <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png?v=2" />
-        <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png?v=2" />
-        <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png?v=2" />
-        <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png?v=2" />
-        <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png?v=2" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png?v=2" />
+        <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png?v=zX69PpKMa4">
+        <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png?v=zX69PpKMa4">
+        <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png?v=zX69PpKMa4">
+        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png?v=zX69PpKMa4">
+        <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png?v=zX69PpKMa4">
+        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png?v=zX69PpKMa4">
+        <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png?v=zX69PpKMa4">
+        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png?v=zX69PpKMa4">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png?v=zX69PpKMa4">
+        <link rel="icon" type="image/png" href="/favicon-32x32.png?v=zX69PpKMa4" sizes="32x32">
+        <link rel="icon" type="image/png" href="/favicon-194x194.png?v=zX69PpKMa4" sizes="194x194">
+        <link rel="icon" type="image/png" href="/favicon-96x96.png?v=zX69PpKMa4" sizes="96x96">
+        <link rel="icon" type="image/png" href="/android-chrome-192x192.png?v=zX69PpKMa4" sizes="192x192">
+        <link rel="icon" type="image/png" href="/favicon-16x16.png?v=zX69PpKMa4" sizes="16x16">
+        <link rel="manifest" href="/manifest.json?v=zX69PpKMa4">
+        <link rel="shortcut icon" href="/favicon.ico?v=zX69PpKMa4">
+        <meta name="msapplication-TileColor" content="#616161">
+        <meta name="msapplication-TileImage" content="/mstile-144x144.png?v=zX69PpKMa4">
+        <meta name="theme-color" content="#ffffff">
         <?php /* <script type="text/javascript">
             // update viewport width on orientation change
             function adapt_to_orientation() {
@@ -241,10 +253,10 @@ class SkinnyTemplate extends QuickTemplate {
  class="mediawiki <?php $this->text('dir') ?> <?php $this->text('pageclass') ?> <?php $this->text('skinnameclass') ?>">
     <div id="fixed-background-hack"></div>
     <div id="globalWrapper">
+		<?php if($this->data['sitenotice']) { ?><div id="siteNotice"><?php $this->html('sitenotice') ?></div><?php } ?>
 		<div id="column-content">
 	<div id="content">
 		<a name="top" id="top"></a>
-		<?php if($this->data['sitenotice']) { ?><div id="siteNotice"><?php $this->html('sitenotice') ?></div><?php } ?>
 		<h1 id="firstHeading" class="firstHeading"><?php $this->data['displaytitle']!=""?$this->html('title'):$this->text('title') ?></h1>
 		<div id="bodyContent">
 			<h3 id="siteSub"><?php $this->msg('tagline') ?></h3>

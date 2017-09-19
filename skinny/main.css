@@ -196,7 +196,7 @@ a[href*="facebook.com"]::before {
     }
 
 .plainlinks a {
-    background:transparent none repeat scroll 0 0 !important;
+    background: transparent none repeat scroll 0 0 !important;
     padding: 0 !important;
     color: #61AE24 !important;
     }
@@ -572,17 +572,26 @@ div.boilerplate.error {
     }
 	
 div#siteNotice {
-    border-top: 1px dashed #ccc;
-    border-bottom: 1px dashed #ccc;
-    background-color: rgba(255, 255, 255, 0.5);
-	/* padding: 0.5em 0.75em 0.5em 2.5em; */
-	padding: 0.5em 0.75em;
-	margin: 0 0 1.4em;
+    background-color: #fff;
+    width: 20.057em; /* 14px·22.857=320px */
+	padding: 1.4em;
+    margin: 0;
+    text-align: center;
 	}
 	
 div#siteNotice p {
 	margin: 0;
 	}
+	
+/* div#siteNotice::after {
+    content: '';
+    display: block;
+    width: 50%;
+    margin: 1.4em 25% 0;
+    padding: 0;
+    height: 0;
+    border-bottom: 1px dashed #ccc;
+	} */
 	
 div#siderail {
     width: 22.357em;
@@ -732,8 +741,12 @@ blockquote {
     padding-left:1em;
     border-left: 1px solid #01A4A4;
     }
+    
+pre {
+    overflow-x: scroll;
+    }
 
-#toc {
+.ns-subject #toc {
     display: none !important;
     }
 
@@ -1047,7 +1060,7 @@ div#mw-subcategories table td,
 div#mw-pages table td {
 	padding: 0;
 	display: block;
-	width: auto;
+	width: auto !important;
 	}
 	
 div#mw-subcategories ul,
@@ -1056,9 +1069,51 @@ div#mw-pages ul {
 	margin-bottom: 0;
 	}
 
+/* Preview */
+.previewnote {
+    color: #e54028;
+    }
+
+/* Recent changes */
+.rcoptions {
+    font-size: 0.643em; /* 14px·0.643=9px */
+    text-align: center;
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
+    padding: 1em;
+    }
+    
+.rcoptions legend {
+    display: none;
+    visibility: hidden;
+    }
+    
+.mw-changeslist-legend {
+    display: none;
+    visibility: hidden;
+    }
+    
+.mw-namespace-label {
+    display: none;
+    visibility: hidden;
+    }
+
+.mw-plusminus-neg {
+    color: #e54028;
+    }
+    
+.mw-plusminus-pos {
+    color: #32742c;
+    }
+
+
+/* Search page */
+
 div.mw-search-formheader {
     font-size: 0.857em; /* 14px·0.857=12px */
     text-align: center;
+    background-color: #f3f3f3;
+    border: 1px solid #ccc;
     }
 
 div.mw-search-formheader div.search-types {
@@ -1134,6 +1189,9 @@ ul.mw-search-results li div.mw-search-result-data {
 .mw-search-result-data {
     color: #616161;
     }
+    
+    
+/* Wikitable */
 
 table.wikitable {
     background-color: #fff;
